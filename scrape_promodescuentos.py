@@ -66,8 +66,14 @@ def scrape_promodescuentos_hot():
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
     )
+    chrome_options.add_argument("--headless")  # Ejecución sin interfaz gráfica
+    chrome_options.add_argument("--no-sandbox")  # Necesario en Render
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Para evitar problemas de memoria
+    chrome_options.binary_location = "/usr/bin/google-chrome"
+    
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option("useAutomationExtension", False)
+    
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
